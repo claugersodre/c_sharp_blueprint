@@ -1,38 +1,41 @@
+@model List<Movie>
 @{
     ViewData["Title"] = "Movies";
 }
 
 <div class="text-center">
     <h1 class="display-4">Movies</h1>
-    <button type="button" class="btn btn-primary">Fecth Database</button>
+    <a asp-action="CreateMovie" asp-controller="Movies" role="button" class="btn btn-primary">Create Movie</a>
 </div>
 <table class="table">
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Title</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Price</th>
         </tr>
     </thead>
     <tbody>
+        @if (Model.Count()<=0){
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>mdo</td>
+            <td>----</td>
+            <td>----</td>
+            <td>----</td>
+            <td>----</td>
         </tr>
+        }
+        @foreach (Movie item in Model)
+        {
         <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
+            <td>@item.Id</td>
+            <td>@item.Title</td>
+            <td>@item.Genre</td>
+            <td>@item.Price</td>
         </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>twitter</td>
-        </tr>
+            
+        }
+        
+       
     </tbody>
 </table>

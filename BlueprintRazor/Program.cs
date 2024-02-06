@@ -1,7 +1,15 @@
+using BlueprintRazor.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
+string ConnectionString=builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine(ConnectionString);
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<DataBaseContext>(options =>
+{
+    options.UseSqlServer(ConnectionString);
+
+});
 
 var app = builder.Build();
 
