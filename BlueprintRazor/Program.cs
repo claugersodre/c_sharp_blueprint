@@ -1,4 +1,6 @@
 using BlueprintRazor.Data;
+using BlueprintRazor.Repository;
+
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -10,7 +12,7 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(ConnectionString);
 
 });
-
+builder.Services.AddScoped<IMovieRepository,MovieRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

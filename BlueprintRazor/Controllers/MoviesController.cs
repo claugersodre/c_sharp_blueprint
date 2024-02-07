@@ -2,19 +2,20 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BlueprintRazor.Models;
 using BlueprintRazor.Data;
+using BlueprintRazor.Repository;
 
 namespace BlueprintRazor.Controllers;
 
 public class MoviesController : Controller
 {
-    private DataBaseContext _dataBaseContext;
-    public MoviesController(DataBaseContext dataBaseContext)
+    private IMovieRepository _movieRepository;
+    public MoviesController( IMovieRepository movieRepository )
     {
-        _dataBaseContext = dataBaseContext;
+        _movieRepository= movieRepository;
     }
     public IActionResult Movies()
     {
-        var movies = _dataBaseContext.Movie.ToList();
+        var movies = _movieRepository.GetAllMovies();
         return View(movies);
     }
     // Show CreateMovie page
@@ -28,8 +29,7 @@ public class MoviesController : Controller
     {
         if (movie != null)
         {
-            _dataBaseContext.Movie.Add(movie);
-            _dataBaseContext.SaveChanges();
+            _movieRepository.CreateMovie(movie);
         }
         return RedirectToAction("Movies");
     }
